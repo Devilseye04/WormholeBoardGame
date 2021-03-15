@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+mainClassName = 'WormHole.Main'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation     'junit:junit:4.13'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'WormHole.Main'
+    }
+}
+
+
+run{
+    standardInput = System.in
+}
