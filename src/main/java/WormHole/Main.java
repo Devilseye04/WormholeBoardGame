@@ -1,6 +1,8 @@
 package WormHole;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -8,7 +10,7 @@ public class Main {
         System.out.println("Welcome to Wormhole.");
 
         //int width_of_board =5;
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in).useDelimiter("\n");;
         int width_of_board;
 
         //Enter the dimension
@@ -83,20 +85,39 @@ public class Main {
                     System.out.println("Please enter the name of player " + (i + 1));
                     players[i] = new Players();
                     players[i].name = sc.next();
-                    if ((players[i].name.matches(".*\\d.*")) || !(players[i].name.matches(".*[$&+,:;=\\\\?@#|/'<>.^*()%!-].*"))) {
+                    /*
+                    if (players[i].name.matches(".*\\d.*")) {
                         System.out.println("--------------------------------------------------");
                         System.out.println("Name should not contain any numbers or special characters");
-                        System.out.println("Example:-");
-                        System.out.println("2,3");
-                        System.out.println("1,6");
-                        System.out.println("4,5");
                         System.out.println("--------------------------------------------------");
 
-                    } else if(players[i].name.length()>=20) {
-                        System.out.println("Name length should be less than 20.");
-                    } else {
-                        break;
                     }
+                    */
+                    Pattern my_pattern = Pattern.compile("[^a-z]", Pattern.CASE_INSENSITIVE);
+                    Matcher my_match = my_pattern.matcher(players[i].name);
+                    boolean check = my_match.find();
+                    if (check) {
+                        System.out.println("--------------------------------------------------");
+                        System.out.println("Name should not contain any numbers or special characters or spaces");
+                        System.out.println("--------------------------------------------------");
+                        continue;
+                    } 
+                    int taken = 0;
+                    for(int j=0;j<i;j++){
+                        if(players[j].name.equals(players[i].name)){
+                            System.out.println("Name is already taken");
+                            taken=1;
+                        }
+                    }
+                    if(taken==1){
+                        continue;
+                    }
+                    if(players[i].name.length()>20){
+                        System.out.println("Player name should not exceed 20 letters");
+                        continue;
+                    
+                    }
+                    break;
 
                 } catch (Exception e) {
                     System.out.println(e);

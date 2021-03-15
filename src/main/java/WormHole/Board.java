@@ -69,14 +69,16 @@ public class Board {
        
     }
     public void getWormholes(){
+        System.out.print("Wormholes: ");
         for (int i = 0; i < dimension_of_board; i++) {
-            System.out.print("Wormholes: "+wormhole[i] + " ");
+            System.out.print(wormhole[i] + " ");
         }
         System.out.println("");
     }
     public void getEscape(){
+        System.out.print("Escape: ");
         for (int i = 0; i < dimension_of_board; i++) {
-            System.out.print("Escape: "+escape[i] + " ");
+            System.out.print(escape[i] + " ");
         }
         System.out.println("");
     }
