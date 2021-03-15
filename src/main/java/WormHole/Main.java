@@ -18,16 +18,16 @@ public class Main {
 
             System.out.println("Please enter the width dimension of your board.[5-10]");
             try {
-                System.out.println("WormHole.Main.main()");
+                
                 width_of_board = Integer.parseInt(sc.nextLine());
                 if (width_of_board >= 5 && width_of_board <= 10) {
-                    System.out.println("WormHole.Main.main()2");
+                    
                     break;
                 } else {
                     System.out.println("**********Width of board needs to be between 5 and 10**********");
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                
                 System.out.println("--------------------------------------------------");
                 System.out.println("Please enter an Interger number");
                 System.out.println("Example:-");
@@ -73,7 +73,7 @@ public class Main {
                 System.out.println("2");
                 System.out.println("6");
                 System.out.println("--------------------------------------------------");
-                sc.nextLine();
+                //sc.next();
             }
         }
 
