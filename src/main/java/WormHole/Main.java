@@ -17,21 +17,24 @@ public class Main {
         while (true) {
 
             System.out.println("Please enter the width dimension of your board.[5-10]");
-            if (sc.hasNextInt()) {
-                width_of_board = sc.nextInt();
+            try {
+                System.out.println("WormHole.Main.main()");
+                width_of_board = Integer.parseInt(sc.nextLine());
                 if (width_of_board >= 5 && width_of_board <= 10) {
+                    System.out.println("WormHole.Main.main()2");
                     break;
                 } else {
                     System.out.println("**********Width of board needs to be between 5 and 10**********");
                 }
-            } else {
+            } catch (Exception e) {
+                System.out.println(e);
                 System.out.println("--------------------------------------------------");
                 System.out.println("Please enter an Interger number");
                 System.out.println("Example:-");
                 System.out.println("5");
                 System.out.println("7");
                 System.out.println("--------------------------------------------------");
-                sc.next();
+                sc.nextLine();
             }
 
         }
@@ -55,36 +58,36 @@ public class Main {
         while (true) {
             try {
                 System.out.println("Please enter the number of players.[2-6]");
-                if (sc.hasNextInt()) {
-                    nop = sc.nextInt();
-                    if (nop >= 2 && nop <= 6) {
-                        break;
-                    } else {
-                        System.out.println("**********Number of players needs to be between 2 and 6**********");
-                    }
+
+                nop = Integer.parseInt(sc.nextLine());
+                if (nop >= 2 && nop <= 6) {
+                    break;
                 } else {
-                    System.out.println("--------------------------------------------------");
-                    System.out.println("Please enter an Integer number");
-                    System.out.println("Example:-");
-                    System.out.println("2");
-                    System.out.println("6");
-                    System.out.println("--------------------------------------------------");
-                    sc.next();
+                    System.out.println("**********Number of players needs to be between 2 and 6**********");
                 }
+
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("--------------------------------------------------");
+                System.out.println("Please enter an Integer number");
+                System.out.println("Example:-");
+                System.out.println("2");
+                System.out.println("6");
+                System.out.println("--------------------------------------------------");
+                sc.nextLine();
             }
         }
 
         //Enter name of Players
         Players players[] = new Players[nop];
-        for (int i = 0; i < nop; i++) {
+        for (int i = 0;
+                i < nop;
+                i++) {
             while (true) {
                 try {
 
                     System.out.println("Please enter the name of player " + (i + 1));
                     players[i] = new Players();
-                    players[i].name = sc.next();
+                    players[i].name = sc.nextLine();
                     /*
                     if (players[i].name.matches(".*\\d.*")) {
                         System.out.println("--------------------------------------------------");
@@ -92,7 +95,7 @@ public class Main {
                         System.out.println("--------------------------------------------------");
 
                     }
-                    */
+                     */
                     Pattern my_pattern = Pattern.compile("[^a-z]", Pattern.CASE_INSENSITIVE);
                     Matcher my_match = my_pattern.matcher(players[i].name);
                     boolean check = my_match.find();
@@ -101,21 +104,21 @@ public class Main {
                         System.out.println("Name should not contain any numbers or special characters or spaces");
                         System.out.println("--------------------------------------------------");
                         continue;
-                    } 
+                    }
                     int taken = 0;
-                    for(int j=0;j<i;j++){
-                        if(players[j].name.equals(players[i].name)){
+                    for (int j = 0; j < i; j++) {
+                        if (players[j].name.equals(players[i].name)) {
                             System.out.println("Name is already taken");
-                            taken=1;
+                            taken = 1;
                         }
                     }
-                    if(taken==1){
+                    if (taken == 1) {
                         continue;
                     }
-                    if(players[i].name.length()>20){
+                    if (players[i].name.length() > 20) {
                         System.out.println("Player name should not exceed 20 letters");
                         continue;
-                    
+
                     }
                     break;
 
@@ -124,19 +127,23 @@ public class Main {
                 }
             }
         }
-        for (int i = 0; i < nop; i++) {
+        for (int i = 0;
+                i < nop;
+                i++) {
             System.out.println(players[i].name);
         }
 
         String auto_check = new String();
 
-        for (int i = 0; i < nop; i++) {
+        for (int i = 0;
+                i < nop;
+                i++) {
 
             //Auto and Manual Dice Roll
             while (true) {
 
                 System.out.println(players[i].name + "  - do you want to roll the dice, or shall I do it for you? \n Type \"Y\" to roll yourself or \"N\" to let me do it.");
-                auto_check = sc.next();
+                auto_check = sc.nextLine();
                 if (auto_check.equals("y") || auto_check.equals("Y")) {
                     players[i].auto_roll = 0;
                     break;
@@ -149,10 +156,13 @@ public class Main {
             }
         }
         //Lets Play
-        System.out.println("Let's Play");
+
+        System.out.println(
+                "Let's Play");
 
         String again = "y";
         int break_while = 1;
+
         while (true) {
             for (int i = 0; i < nop; i++) {
                 players[i].position = 1;
@@ -176,6 +186,31 @@ public class Main {
                             } else {
                                 while (true) {
                                     System.out.println(players[i].name + " - please roll the dice");
+                                    String temp = sc.nextLine();
+                                    
+                                    Pattern my_pattern = Pattern.compile("[0-9]{1,}" + "," + "[0-9]{1,}", Pattern.CASE_INSENSITIVE);
+                                    Matcher my_match = my_pattern.matcher(temp);
+                                    boolean check = my_match.find();
+                                    if (check) {
+                                        String[] tmp = temp.split(",");
+                                        dice_roll[0] = Integer.parseInt(tmp[0]);
+                                        dice_roll[1] = Integer.parseInt(tmp[1]);
+                                        if (dice_roll[0] >= 1 && dice_roll[0] <= 6 && dice_roll[1] >= 1 && dice_roll[1] <= 6) {
+                                            break;
+                                        } else {
+                                            System.out.println("**********Dice values can only be between 1 to 6**********");
+                                        }
+                                    } else {
+                                        System.out.println("--------------------------------------------------");
+                                        System.out.println("Please enter dice values in proper format");
+                                        System.out.println("Example:-");
+                                        System.out.println("2,3");
+                                        System.out.println("1,6");
+                                        System.out.println("4,5");
+                                        System.out.println("--------------------------------------------------");
+                                        
+                                    }
+                                    /*
                                     if (sc.hasNext("[0-9]{1,}" + "," + "[0-9]{1,}")) {
                                         String temp = sc.next();
                                         String[] tmp = temp.split(",");
@@ -194,8 +229,8 @@ public class Main {
                                         System.out.println("1,6");
                                         System.out.println("4,5");
                                         System.out.println("--------------------------------------------------");
-                                        sc.next();
-                                    }
+                                        sc.nextLine();
+                                    }*/
                                 }
                                 System.out.println(dice_roll[0] + " " + dice_roll[1]);
                                 players[i].position = players[i].position + dice_roll[0] + dice_roll[1];
@@ -229,7 +264,7 @@ public class Main {
 
                 System.out.println("Would you like to play the game again?");
                 System.out.println("Type [Y] to play again or type [N] to stop the game.");
-                again = sc.next();
+                again = sc.nextLine();
                 if (again.contains("y") || again.contains("Y")) {
                     break;
                 } else if (again.contains("n") || again.contains("N")) {
@@ -243,7 +278,8 @@ public class Main {
             }
         }
 
-        System.out.println("");
+        System.out.println(
+                "");
 
     }
 }
