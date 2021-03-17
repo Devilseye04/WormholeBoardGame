@@ -188,7 +188,7 @@ public class Main {
                                     System.out.println(players[i].name + " - please roll the dice");
                                     String temp = sc.nextLine();
                                     
-                                    Pattern my_pattern = Pattern.compile("[0-9]{1,}" + "," + "[0-9]{1,}", Pattern.CASE_INSENSITIVE);
+                                    Pattern my_pattern = Pattern.compile("^[0-6]{1},[0-6]{1}$", Pattern.CASE_INSENSITIVE);
                                     Matcher my_match = my_pattern.matcher(temp);
                                     boolean check = my_match.find();
                                     if (check) {
